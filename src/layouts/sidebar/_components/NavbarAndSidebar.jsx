@@ -1,6 +1,6 @@
 import { Package2 } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import { navItems } from "../App";
+import { navItems } from "../../../nav-items";
 import { SidebarNavLink } from "./SidebarNavLink";
 
 export const NavbarAndSidebar = () => (
@@ -15,10 +15,22 @@ export const NavbarAndSidebar = () => (
       <div className="flex-1">
         <nav className="grid items-start px-2 text-sm font-medium lg:px-4 gap-2">
           {navItems.map((item) => (
-            <SidebarNavLink key={item.to} to={item.to}>
-              {item.icon}
-              {item.title}
-            </SidebarNavLink>
+            <div key={item.to}>
+              <SidebarNavLink to={item.to}>
+                {item.icon}
+                {item.title}
+              </SidebarNavLink>
+              {item.subItems && (
+                <div className="ml-4 mt-1">
+                  {item.subItems.map((subItem) => (
+                    <SidebarNavLink key={subItem.to} to={subItem.to}>
+                      {subItem.icon}
+                      {subItem.title}
+                    </SidebarNavLink>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </nav>
       </div>

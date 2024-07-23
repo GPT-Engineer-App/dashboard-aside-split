@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Package2 } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import { navItems } from "../App";
-import { SidebarNavLink } from "./_components_sidebar/SidebarNavLink";
+import { navItems } from "../../../nav-items";
+import { SidebarNavLink } from "./SidebarNavLink";
 
 export const MobileSidebar = () => (
   <Sheet>
@@ -23,9 +23,22 @@ export const MobileSidebar = () => (
           <span className="sr-only">Acme Inc</span>
         </NavLink>
         {navItems.map((item) => (
-          <SidebarNavLink key={item.to} to={item.to}>
-            {item.title}
-          </SidebarNavLink>
+          <div key={item.to}>
+            <SidebarNavLink to={item.to}>
+              {item.icon}
+              {item.title}
+            </SidebarNavLink>
+            {item.subItems && (
+              <div className="ml-4 mt-1">
+                {item.subItems.map((subItem) => (
+                  <SidebarNavLink key={subItem.to} to={subItem.to}>
+                    {subItem.icon}
+                    {subItem.title}
+                  </SidebarNavLink>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
       </nav>
     </SheetContent>
